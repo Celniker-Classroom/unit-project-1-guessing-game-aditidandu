@@ -7,8 +7,7 @@ let scores = 0;
 
 //Player Name and Properly Formatting it
 let playerName = prompt("Enter your name:");
-playerName = playerName.toLowerCase();
-playerName.substring(0,1).toUpperCase() + playerName.substring(1).toLowerCase();
+playerName = playerName.substring(0,1).toUpperCase() + playerName.substring(1).toLowerCase();
 //Play
 //get level
 document.getElementById("playBtn").addEventListener("click", function(){
