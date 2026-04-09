@@ -3,7 +3,7 @@ let answer = 0;
 let guessCount = 0;
 let totalWins = 0;
 let totalGuesses = 0;
-let scores = 0;
+let scores = [];
 
 //Player Name and Properly Formatting it
 let playerName = prompt("Enter your name:");
