@@ -5,6 +5,8 @@ let totalWins = 0;
 let totalGuesses = 0;
 let scores = [];
 
+let range = 3;
+
 let startTime = 0;
 let fastestTime = null;
 let totalTime = 0;
@@ -14,12 +16,22 @@ let roundsPlayed = 0;
 let playerName = prompt("Enter your name:");
 playerName = playerName.substring(0,1).toUpperCase() + playerName.substring(1).toLowerCase();
 
+//dark mode
+document.getElementById("darkBtn").addEventListener("click", function(){
+    document.body.classList.toggle("dark-mode");
+    let btn = document.getElementById("darkBtn");
+    if (document.body.classList.contains("dark-mode")){
+        btn.textContent = "Light Mode";
+    } else{
+        btn.textContent = "Dark Mode";
+    }
+});
 //Play
 //get level
 document.getElementById("playBtn").addEventListener("click", function(){
     startTime = new Date().getTime();
     let radios = document.getElementsByName("level");
-    let range = 3;
+    range = 3;
     for (let i = 0; i < radios.length; i++){
         if(radios[i].checked){
             range = parseInt(radios[i].value);
@@ -29,7 +41,7 @@ document.getElementById("playBtn").addEventListener("click", function(){
     answer = Math.floor(Math.random() * range) + 1;
     guessCount = 0; //resets guess count for new round
     //Disable and Enable buttons and radio choices
-    document.getElementById("msg").textContent = playerName + ", guess a number between 1 and " + range;
+    document.getElementById("msg").textContent = playerName + ", guess a number between 1 and " + range + ".";
     document.getElementById("guess").value="";
     document.getElementById("guessBtn").disabled = false;
     document.getElementById("giveUpBtn").disabled = false;
@@ -85,13 +97,17 @@ document.getElementById("guessBtn").addEventListener("click", function(){
     let input = document.getElementById("guess").value;
     let num = parseInt(input);
 
+
     if (isNaN(num)){
         document.getElementById("msg").textContent = "Please enter a valid number!";
         return;
-    } else if (num < 1 || num > range){
+    }
+
+    if (num < 1 || num > range){
         document.getElementById("msg").textContent = "Please enter a number between 1 and " + range + "!";
         return;
     }
+
 
     guessCount ++;
     let diff = Math.abs(num - answer);
@@ -144,7 +160,7 @@ document.getElementById("giveUpBtn").addEventListener("click", giveUp);
 
 function giveUp(){
     let radios = document.getElementsByName("level");
-    let range = 3;
+    range = 3;
     for (let i = 0; i < radios.length; i++){
         if(radios[i].checked){
             range = parseInt(radios[i].value);
