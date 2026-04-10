@@ -46,6 +46,7 @@ function time(){
     let now = new Date();
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let day = now.getDate();
+    //suffix for date
     let suffix = "th";
     if (day % 10 === 1 && day !== 11){
         suffix = "st";
