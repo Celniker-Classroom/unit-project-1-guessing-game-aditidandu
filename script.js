@@ -14,7 +14,7 @@ let roundsPlayed = 0;
 let playerName = prompt("Enter your name:");
 playerName = playerName.substring(0,1).toUpperCase() + playerName.substring(1).toLowerCase();
 
-//time
+//Time and Date
 function time(){
     let now = new Date();
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -34,8 +34,19 @@ function time(){
     return months[now.getMonth()] + " " + day + suffix + ", " + now.getFullYear() + " " + hours + ":" + minutes + ":" + seconds;
 }
 
+function updateTimers(endMs){
+    let elapsed = (endMs - startTime) / 1000;
+    roundsPlayed ++;
+    totalTime += elapsed;
+    if (fastestTime === null || elapsed < fastestTime){
+        fastestTime = elapsed;
+    }
+    document.getElementById("fastest").textContent = "Fastest Time: " + fastestTime.toFixed(2) + " seconds";
+    document.getElementById("average").textContent = "Average Time: " + (totalTime/roundsPlayed).toFixed(2) + " seconds";
+}
+
 setInterval(function(){
-    document.getElementById("time").textContent = time();
+    document.getElementById("date").textContent = time();
 }, 1000);
 
 let endtime = new Date().getTime();
@@ -44,7 +55,7 @@ let elapsedTime = (endtime - startTime) / 1000;
 //Play
 //get level
 document.getElementById("playBtn").addEventListener("click", function(){
-    startTime = new Date(); //start time for round
+    startTime = new Date().getTime();
     let radios = document.getElementsByName("level");
     let range = 3;
     for (let i = 0; i < radios.length; i++){
@@ -85,7 +96,8 @@ document.getElementById("guessBtn").addEventListener("click", function(){
     if (num === answer){
         document.getElementById("msg").textContent = "Correct! " + playerName + " got it in " + guessCount + " guesses!";
         updateScore(guessCount);
-        resetButtons(); //stop guess and give up restart play
+        updateTimers(new Date().getTime());
+        reset(); //stop guess and give up restart play
     }
     //higher
     else if (num > answer){
@@ -153,7 +165,7 @@ function updateScore(score){
     }
 }
 
-function resetButtons(){
+function reset(){
     let radios = document.getElementsByName("level");
     document.getElementById("guessBtn").disabled = true;
     document.getElementById("giveUpBtn").disabled = true;
