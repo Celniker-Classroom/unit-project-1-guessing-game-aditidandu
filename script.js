@@ -80,6 +80,23 @@ document.getElementById("guessBtn").addEventListener("click", function(){
         
 })
 
+//Give up button
+document.getElementById("giveUpBtn").addEventListener("click", giveUp);
+
+function giveUp(){
+    let radios = document.getElementsByName("level");
+    let range = 3;
+    for (let i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            range = parseInt(radios[i].value);
+        }
+    }
+    document.getElementById("msg").textContent = playerName + " gave up. The correct answer was " + answer + ". Play again?";
+    resetButtons();
+    updateScore(range);
+    reset();
+}
+
 //update score when win
 function updateScore(score){
     totalWins ++;
