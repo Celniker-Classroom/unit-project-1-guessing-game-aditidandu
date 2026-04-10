@@ -63,7 +63,7 @@ document.getElementById("guessBtn").addEventListener("click", function(){
         } else{
             temp = "Cold!";
         }
-        document.getElementById("msg").textContent = "To high. " + temp;
+        document.getElementById("msg").textContent = "Too high. " + temp;
     }
 
     else if (num < answer){
@@ -75,7 +75,7 @@ document.getElementById("guessBtn").addEventListener("click", function(){
         } else{
             temp = "Cold!";
         }
-        document.getElementById("msg").textContent = "To low. " + temp;
+        document.getElementById("msg").textContent = "Too low. " + temp;
     }
         
 })
@@ -92,7 +92,6 @@ function giveUp(){
         }
     }
     document.getElementById("msg").textContent = playerName + " gave up. The correct answer was " + answer + ". Play again?";
-    resetButtons();
     updateScore(range);
     reset();
 }
