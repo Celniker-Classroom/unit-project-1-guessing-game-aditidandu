@@ -88,6 +88,9 @@ document.getElementById("guessBtn").addEventListener("click", function(){
     if (isNaN(num)){
         document.getElementById("msg").textContent = "Please enter a valid number!";
         return;
+    } else if (num < 1 || num > range){
+        document.getElementById("msg").textContent = "Please enter a number between 1 and " + range + "!";
+        return;
     }
 
     guessCount ++;
@@ -96,6 +99,15 @@ document.getElementById("guessBtn").addEventListener("click", function(){
     //correct
     if (num === answer){
         document.getElementById("msg").textContent = "Correct! " + playerName + " got it in " + guessCount + " guesses!";
+        if(guessCount === 1){
+            document.getElementById("msg").textContent += " First Try!";
+        } else if (guessCount <= 3){
+            document.getElementById("msg").textContent += " Amazing!";
+        } else if (guessCount <= 6){
+            document.getElementById("msg").textContent += " Good Job!";
+        } else{
+            document.getElementById("msg").textContent += " Nice work!";
+        }
         updateScore(guessCount);
         updateTimers(new Date().getTime());
         reset(); //stop guess and give up restart play
