@@ -60,6 +60,7 @@ function time(){
 
     return months[now.getMonth()] + " " + day + suffix + ", " + now.getFullYear() + " " + hours + ":" + minutes + ":" + seconds;
 }
+document.getElementById("date").textContent = time();
 //clock
 setInterval(function(){
     document.getElementById("date").textContent = time();
