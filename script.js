@@ -5,12 +5,46 @@ let totalWins = 0;
 let totalGuesses = 0;
 let scores = [];
 
+let startTime = 0;
+let fastestTime = null;
+let totalTime = 0;
+let roundsPlayed = 0;
+
 //Player Name and Properly Formatting it
 let playerName = prompt("Enter your name:");
 playerName = playerName.substring(0,1).toUpperCase() + playerName.substring(1).toLowerCase();
+
+//time
+function time(){
+    let now = new Date();
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let day = now.getDate();
+    let suffix = "th";
+    if (day === 1 || day === 21 || day === 31){
+        suffix = "st";
+    } else if (day === 2 || day === 22){
+        suffix = "nd";
+    } else if (day === 3 || day === 23){
+        suffix = "rd";
+    }
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+
+    return months[now.getMonth()] + " " + day + suffix + ", " + now.getFullYear() + " " + hours + ":" + minutes + ":" + seconds;
+}
+
+setInterval(function(){
+    document.getElementById("time").textContent = time();
+}, 1000);
+
+let endtime = new Date().getTime();
+let elapsedTime = (endtime - startTime) / 1000;
+
 //Play
 //get level
 document.getElementById("playBtn").addEventListener("click", function(){
+    startTime = new Date(); //start time for round
     let radios = document.getElementsByName("level");
     let range = 3;
     for (let i = 0; i < radios.length; i++){
@@ -93,6 +127,7 @@ function giveUp(){
     }
     document.getElementById("msg").textContent = playerName + " gave up. The correct answer was " + answer + ". Play again?";
     updateScore(range);
+    updateTimers(new Date().getTime());
     reset();
 }
 
