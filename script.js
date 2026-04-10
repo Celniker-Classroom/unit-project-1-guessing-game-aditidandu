@@ -14,42 +14,6 @@ let roundsPlayed = 0;
 let playerName = prompt("Enter your name:");
 playerName = playerName.substring(0,1).toUpperCase() + playerName.substring(1).toLowerCase();
 
-//Time and Date
-function time(){
-    let now = new Date();
-    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let day = now.getDate();
-    let suffix = "th";
-    if (day === 1 || day === 21 || day === 31){
-        suffix = "st";
-    } else if (day === 2 || day === 22){
-        suffix = "nd";
-    } else if (day === 3 || day === 23){
-        suffix = "rd";
-    }
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
-
-    return months[now.getMonth()] + " " + day + suffix + ", " + now.getFullYear() + " " + hours + ":" + minutes + ":" + seconds;
-}
-
-function updateTimers(endMs){
-    let elapsed = (endMs - startTime) / 1000;
-    roundsPlayed ++;
-    totalTime += elapsed;
-    if (fastestTime === null || elapsed < fastestTime){
-        fastestTime = elapsed;
-    }
-    document.getElementById("fastest").textContent = "Fastest Time: " + fastestTime.toFixed(2) + " seconds";
-    document.getElementById("average").textContent = "Average Time: " + (totalTime/roundsPlayed).toFixed(2) + " seconds";
-}
-
-setInterval(function(){
-    document.getElementById("date").textContent = time();
-}, 1000);
-
-
 //Play
 //get level
 document.getElementById("playBtn").addEventListener("click", function(){
@@ -76,6 +40,43 @@ document.getElementById("playBtn").addEventListener("click", function(){
         levelRadios[i].disabled = true;
     }
 });
+
+//Time and Date
+function time(){
+    let now = new Date();
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let day = now.getDate();
+    let suffix = "th";
+    if (day % 10 === 1 && day !== 11){
+        suffix = "st";
+    } else if (day % 10 === 2 && day !== 12){
+        suffix = "nd";
+    } else if (day % 10 === 3 && day !== 13){
+        suffix = "rd";
+    }
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+
+    return months[now.getMonth()] + " " + day + suffix + ", " + now.getFullYear() + " " + hours + ":" + minutes + ":" + seconds;
+}
+//clock
+setInterval(function(){
+    document.getElementById("date").textContent = time();
+}, 1000);
+
+//update timer properly
+function updateTimers(endMs){
+    let elapsed = (endMs - startTime) / 1000;
+    roundsPlayed ++;
+    totalTime += elapsed;
+    if (fastestTime === null || elapsed < fastestTime){
+        fastestTime = elapsed;
+    }
+    document.getElementById("fastest").textContent = "Fastest Time: " + fastestTime.toFixed(2) + " seconds";
+    document.getElementById("average").textContent = "Average Time: " + (totalTime/roundsPlayed).toFixed(2) + " seconds";
+}
+
 
 //Guessing
 document.getElementById("guessBtn").addEventListener("click", function(){
@@ -152,7 +153,9 @@ function updateScore(score){
     //update leader board
     scores.push(score);
     scores.sort(function(a,b){return a-b;});
-
+    
+    //i added this because to make sure only 3 scores were shown
+    let displayScores = scores.slice(0,3);
     let leaderboard = document.getElementsByName("leaderboard");
     for (let i=0; i < leaderboard.length; i++){
         if(i < scores.length){
