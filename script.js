@@ -64,6 +64,7 @@ function time(){
 setInterval(function(){
     document.getElementById("date").textContent = time();
 }, 1000);
++ document.getElementById("date").textContent = time();
 
 //update timer properly
 function updateTimers(endMs){
@@ -74,7 +75,7 @@ function updateTimers(endMs){
         fastestTime = elapsed;
     }
     document.getElementById("fastest").textContent = "Fastest Time: " + fastestTime.toFixed(2) + " seconds";
-    document.getElementById("average").textContent = "Average Time: " + (totalTime/roundsPlayed).toFixed(2) + " seconds";
+    document.getElementById("avgTime").textContent = "Average Time: " + ((roundsPlayed === 0) ? 0 : (totalTime/roundsPlayed).toFixed(2)) + " seconds";
 }
 
 
@@ -139,6 +140,7 @@ function giveUp(){
     document.getElementById("msg").textContent = playerName + " gave up. The correct answer was " + answer + ". Play again?";
     updateScore(range);
     updateTimers(new Date().getTime());
+    
     reset();
 }
 
@@ -158,8 +160,9 @@ function updateScore(score){
     let displayScores = scores.slice(0,3);
     let leaderboard = document.getElementsByName("leaderboard");
     for (let i=0; i < leaderboard.length; i++){
-        if(i < scores.length){
-            leaderboard[i].textContent = scores[i];
+        leaderboard[i].textContent = "--";
+        if(i < displayScores.length){
+            leaderboard[i].textContent = displayScores[i];
         } else{
             leaderboard[i].textContent = "--";
         }
