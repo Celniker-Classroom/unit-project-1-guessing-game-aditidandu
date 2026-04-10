@@ -64,7 +64,6 @@ function time(){
 setInterval(function(){
     document.getElementById("date").textContent = time();
 }, 1000);
-+ document.getElementById("date").textContent = time();
 
 //update timer properly
 function updateTimers(endMs){
