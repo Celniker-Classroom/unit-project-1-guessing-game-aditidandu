@@ -49,8 +49,6 @@ setInterval(function(){
     document.getElementById("date").textContent = time();
 }, 1000);
 
-let endtime = new Date().getTime();
-let elapsedTime = (endtime - startTime) / 1000;
 
 //Play
 //get level
@@ -149,7 +147,7 @@ function updateScore(score){
     totalGuesses += score;
     //score for round and average
     document.getElementById("wins").textContent = "Total wins: " + totalWins;
-    document.getElementById("avgScore").textContent = "Average Score: " + (totalGuesses/totalWins).toFixed(1);
+    document.getElementById("avgScore").textContent = "Average Score: " + Math.round(totalGuesses/totalWins);
     
     //update leader board
     scores.push(score);
