@@ -20,6 +20,11 @@ ol {
     text-align: left;
 }
 
+#wins, #avgScore, #fastest, #avgTime {
+    margin: 5px;
+    font-size: 1.1rem;
+}
+
 .dark-mode {
     background-color:rgb(23, 19, 53);
     color: lavender;
@@ -29,9 +34,4 @@ ol {
     background-color: #36254e;
     color: lavender;
     border: 1px solid #4f3476;
-}
-
-#wins, #avgScore, #fastest, #avgTime {
-    margin: 5px;
-    font-size: 1.1rem;
 }

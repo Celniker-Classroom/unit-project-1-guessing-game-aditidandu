@@ -104,7 +104,7 @@ document.getElementById("guessBtn").addEventListener("click", function(){
     }
 
     if (num < 1 || num > range){
-        document.getElementById("msg").textContent = "Please enter a number between 1 and " + range + "!";
+        document.getElementById("msg").textContent = "Please enter a number between 1 and " + range + " for this level!";
         return;
     }
 
